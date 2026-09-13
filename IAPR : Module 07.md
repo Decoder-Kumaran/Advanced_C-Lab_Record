@@ -272,32 +272,65 @@ Write a C program to dynamically allocate memory to store information about mult
 
 ## Algorithm:
 
-1.Input the number of subjects.
-2.Read the integer value n from the user, which represents the number of subjects.
-3.Dynamically allocate memory:
-4.Use malloc to allocate memory for n subjects. Each subject has a name (array of characters) and marks (integer).
-5.If memory allocation fails (i.e., the pointer s is NULL), display an error message and exit the program.
-6.Input the details of each subject
-7.Use a for loop to read the name and marks of each subject using scanf. For each subject, store the name as a string and marks as an integer in the dynamically allocated memory.
-8.Display the details of each subject
-9.Use another for loop to print the name and marks of each subject.
-10.Free the allocated memory
-11.After all operations are done, call free(s) to release the dynamically allocated memory.
-12.Return from the main function
-13.End the program by returning 0.
+1. Input the number of subjects.
+2. Read the integer value n from the user, which represents the number of subjects.
+3. Dynamically allocate memory:
+4. Use malloc to allocate memory for n subjects. Each subject has a name (array of characters) and marks (integer).
+5. If memory allocation fails (i.e., the pointer s is NULL), display an error message and exit the program.
+6. Input the details of each subject
+7. Use a for loop to read the name and marks of each subject using scanf. For each subject, store the name as a string and marks as an integer in the dynamically allocated memory.
+8. Display the details of each subject
+9. Use another for loop to print the name and marks of each subject.
+10. Free the allocated memory
+11. After all operations are done, call free(s) to release the dynamically allocated memory.
+12. Return from the main function
+13. End the program by returning 0.
 
 ## Program:
 
-//type your code here
+```c
+#include <stdio.h>
+#include <stdlib.h>
 
+struct Subject {
+    char name[50];
+    int marks;
+};
 
+int main() {
+    int n, i;
 
+    printf("Enter the number of subjects: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        return 1;
+    }
+
+    struct Subject *s = (struct Subject *)malloc(n * sizeof(struct Subject));
+    if (s == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++) {
+        printf("Enter subject %d name: ", i + 1);
+        scanf("%s", (s + i)->name);
+        printf("Enter marks for %s: ", (s + i)->name);
+        scanf("%d", &(s + i)->marks);
+    }
+
+    printf("\n--- Subject Details ---\n");
+    for (i = 0; i < n; i++) {
+        printf("Subject %d: %s | Marks: %d\n", i + 1, (s + i)->name, (s + i)->marks);
+    }
+
+    free(s);
+    return 0;
+}
+```
 
 ## Output:
 
-
-//paste your output here
-
+<img width="652" height="498" alt="image" src="https://github.com/user-attachments/assets/5875d268-2053-428e-a8a3-6c30cee71528" />
 
 ## Result:
-Thus, the program is verified successfully
+Thus,the C program to dynamically allocate memory to store information about multiple subjects (name and marks), input the details for each subject, and then display the stored information. Finally, it frees the allocated memory to prevent memory leaksis verified successfully.
